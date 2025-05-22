@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Row, Col, Typography, Tag, Space, Spin, message, Divider, Rate, Button } from 'antd';
-import { ClockCircleOutlined, PlayCircleOutlined, CalendarOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Tag, Space, Spin, message, Divider, Rate } from 'antd';
+import { ClockCircleOutlined, CalendarOutlined } from '@ant-design/icons';
 import { movies } from '../api/client';
 import { DateSelector } from '../components/movies/DateSelector';
 import { SessionList } from '../components/movies/SessionList';
