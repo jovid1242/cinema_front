@@ -29,10 +29,6 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
         return dayjsDate.format('D MMMM');
     };
 
-    const formatWeekday = (date: string) => {
-        return dayjs(date).format('dd');
-    };
-
     return (
         <div className="date-selector-container">
             <Title level={5} className="date-selector-title">Выберите дату сеанса:</Title>
@@ -43,7 +39,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
                         className={`date-radio-button ${selectedDate === date ? 'date-radio-button-active' : ''}`}
                         onClick={() => onDateSelect(date)}
                     >
-                        <div className="date-button-content"> 
+                        <div className="date-button-content">
                             <div className="date-day">{formatDate(date)}</div>
                         </div>
                     </button>
