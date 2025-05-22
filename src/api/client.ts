@@ -267,16 +267,18 @@ export const users = {
 export const statistics = {
     getOverview: async () => {
         const response = await apiClient.get<ApiResponse<{
-            total_users: number;
-            total_movies: number;
-            total_sessions: number;
-            total_tickets: number;
-            total_revenue: number;
-            tickets_by_status: {
-                reserved: number;
+            users: number;
+            movies: number;
+            sessions: number;
+            tickets: {
+                total: number;
+                booked: number;
                 paid: number;
-                cancelled: number;
+                canceled: number;
                 expired: number;
+            };
+            revenue: {
+                total: string;
             };
         }>>('/statistics/overview');
         return response.data;

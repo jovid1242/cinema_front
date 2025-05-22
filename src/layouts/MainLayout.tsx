@@ -16,7 +16,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <div className="site-layout-content">{children}</div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-                Кинотеатр ©{new Date().getFullYear()} Создано с помощью React и Ant Design
+                Кинотеатр ©{new Date().getFullYear()} Jovid Masharipov ДИС 232.2/21
             </Footer>
         </Layout>
     );

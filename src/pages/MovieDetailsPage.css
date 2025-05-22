@@ -1,0 +1,87 @@
+.movie-details-wrapper {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.movie-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.movie-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(15px) brightness(0.3);
+  z-index: 0;
+}
+
+.movie-details-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+}
+
+.movie-poster {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.movie-poster:hover {
+  transform: scale(1.02);
+}
+
+.movie-title {
+  margin-bottom: 16px !important;
+  color: #333;
+}
+
+.movie-meta {
+  margin-bottom: 20px;
+}
+
+.movie-tag {
+  padding: 5px 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.movie-description {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.movie-divider {
+  margin: 30px 0;
+  background-color: #eaeaea;
+  height: 2px;
+}
+
+.sessions-title {
+  margin-bottom: 20px !important;
+  color: #333;
+}
+
+.sessions-container {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+.trailer-button {
+  margin-bottom: 20px;
+} 

@@ -41,11 +41,11 @@ const menuItems = [
         icon: <UserOutlined />,
         label: 'Пользователи',
     },
-    {
-        key: '/admin/statistics',
-        icon: <BarChartOutlined />,
-        label: 'Статистика',
-    },
+    // {
+    //     key: '/admin/statistics',
+    //     icon: <BarChartOutlined />,
+    //     label: 'Статистика',
+    // },
 ];
 
 export const AdminLayout: React.FC = () => {

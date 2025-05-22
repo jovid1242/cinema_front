@@ -1,0 +1,54 @@
+.banner-container {
+  margin-bottom: 40px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.slide-content {
+  position: relative;
+  height: 650px;
+  overflow: hidden;
+}
+
+.slide-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7);
+}
+
+.slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.slide-title {
+  color: #fff !important;
+  margin-bottom: 10px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slide-description {
+  color: #fff !important;
+  font-size: 16px;
+  max-width: 600px;
+  margin-bottom: 20px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.watch-button {
+  width: 180px;
+  height: 46px;
+  font-size: 16px;
+} 

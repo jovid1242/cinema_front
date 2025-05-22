@@ -92,13 +92,13 @@ export const StatisticsPage: React.FC = () => {
     };
 
     const ticketsByStatusConfig = {
-        data: overviewData?.data.tickets_by_status
-            ? Object.entries(overviewData.data.tickets_by_status).map(([status, count]) => ({
-                type: status === 'reserved' ? 'Забронировано' :
-                    status === 'paid' ? 'Оплачено' :
-                    status === 'cancelled' ? 'Отменено' : 'Истекло',
-                value: count,
-            }))
+        data: overviewData?.data
+            ? [
+                { type: 'Забронировано', value: overviewData.data.tickets.booked },
+                { type: 'Оплачено', value: overviewData.data.tickets.paid },
+                { type: 'Отменено', value: overviewData.data.tickets.canceled },
+                { type: 'Истекло', value: overviewData.data.tickets.expired },
+            ]
             : [],
         angleField: 'value',
         colorField: 'type',
@@ -181,7 +181,7 @@ export const StatisticsPage: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Пользователи"
-                            value={overviewData?.data.total_users}
+                            value={overviewData?.data.users}
                             prefix={<UserOutlined />}
                         />
                     </Card>
@@ -190,7 +190,7 @@ export const StatisticsPage: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Фильмы"
-                            value={overviewData?.data.total_movies}
+                            value={overviewData?.data.movies}
                             prefix={<FileOutlined />}
                         />
                     </Card>
@@ -199,7 +199,7 @@ export const StatisticsPage: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Сеансы"
-                            value={overviewData?.data.total_sessions}
+                            value={overviewData?.data.sessions}
                             prefix={<CalendarOutlined />}
                         />
                     </Card>
@@ -208,7 +208,7 @@ export const StatisticsPage: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Билеты"
-                            value={overviewData?.data.total_tickets}
+                            value={overviewData?.data.tickets.total}
                             prefix={<TagsOutlined />}
                         />
                     </Card>
@@ -217,7 +217,7 @@ export const StatisticsPage: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Общая выручка"
-                            value={overviewData?.data.total_revenue}
+                            value={overviewData?.data.revenue.total}
                             prefix={<DollarOutlined />}
                             suffix="₽"
                         />

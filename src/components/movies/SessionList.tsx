@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, Tag, Space, Typography } from 'antd';
+import { Tag, Typography } from 'antd';
 import { ClockCircleOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import type { Session } from '../../types';
+import './SessionList.css';
 
 const { Text } = Typography;
 
@@ -19,29 +20,52 @@ export const SessionList: React.FC<SessionListProps> = ({ sessions, selectedDate
         });
     };
 
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long'
+        });
+    };
+
     return (
-        <Space direction="vertical" style={{ width: '100%' }} size="middle">
-            <Text strong>Сеансы на {new Date(selectedDate).toLocaleDateString('ru-RU')}</Text>
-            <Space wrap>
-                {sessions.map((session) => (
-                    <Link 
-                        key={session.id} 
-                        to={`/sessions/${session.id}/seats`}
-                        style={{ textDecoration: 'none' }}
-                    >
-                        <Card hoverable size="small">
-                            <Space>
-                                <ClockCircleOutlined /> {formatTime(session.start_time)}
-                                <EnvironmentOutlined /> {session.hall.name}
-                                <Tag color="blue">{session.price} ₽</Tag>
-                            </Space>
-                        </Card>
-                    </Link>
-                ))}
-            </Space>
-            {sessions.length === 0 && (
-                <Text type="secondary">На выбранную дату сеансов нет</Text>
+        <div>
+            <Text strong className="session-date-title">
+                Сеансы на {formatDate(selectedDate)}
+            </Text>
+            
+            {sessions.length > 0 ? (
+                <div className="sessions-grid">
+                    {sessions.map((session) => (
+                        <Link 
+                            key={session.id} 
+                            to={`/sessions/${session.id}/seats`}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <div className="session-card">
+                                <div className="session-card-content">
+                                    <div className="session-time">
+                                        <ClockCircleOutlined style={{ marginRight: 8 }} /> 
+                                        {formatTime(session.start_time)}
+                                    </div>
+                                    <div className="session-hall">
+                                        <EnvironmentOutlined style={{ marginRight: 8 }} /> 
+                                        Зал {session.hall?.name}
+                                    </div>
+                                    <div className="session-price">
+                                        <Tag color="blue" className="session-price-tag">
+                                            {session.price} ₽
+                                        </Tag>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            ) : (
+                <div className="no-sessions-message">
+                    На выбранную дату сеансов нет
+                </div>
             )}
-        </Space>
+        </div>
     );
 }; 

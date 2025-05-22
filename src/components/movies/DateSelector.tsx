@@ -1,6 +1,9 @@
 import React from 'react';
-import { Radio, Space } from 'antd';
+import { Typography } from 'antd';
 import dayjs from 'dayjs';
+import './DateSelector.css';
+
+const { Title } = Typography;
 
 interface DateSelectorProps {
     dates: string[];
@@ -26,19 +29,26 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
         return dayjsDate.format('D MMMM');
     };
 
+    const formatWeekday = (date: string) => {
+        return dayjs(date).format('dd');
+    };
+
     return (
-        <Radio.Group
-            value={selectedDate}
-            onChange={(e) => onDateSelect(e.target.value)}
-            buttonStyle="solid"
-        >
-            <Space wrap>
+        <div className="date-selector-container">
+            <Title level={5} className="date-selector-title">Выберите дату сеанса:</Title>
+            <div className="date-radio-group">
                 {dates.map((date) => (
-                    <Radio.Button key={date} value={date}>
-                        {formatDate(date)}
-                    </Radio.Button>
+                    <button 
+                        key={date} 
+                        className={`date-radio-button ${selectedDate === date ? 'date-radio-button-active' : ''}`}
+                        onClick={() => onDateSelect(date)}
+                    >
+                        <div className="date-button-content"> 
+                            <div className="date-day">{formatDate(date)}</div>
+                        </div>
+                    </button>
                 ))}
-            </Space>
-        </Radio.Group>
+            </div>
+        </div>
     );
 }; 

@@ -37,7 +37,7 @@ export const Dashboard: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Пользователи"
-                            value={data?.data.total_users}
+                            value={data?.data.users}
                             prefix={<UserOutlined />}
                         />
                     </Card>
@@ -46,7 +46,7 @@ export const Dashboard: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Фильмы"
-                            value={data?.data.total_movies}
+                            value={data?.data.movies}
                             prefix={<FileOutlined />}
                         />
                     </Card>
@@ -55,7 +55,7 @@ export const Dashboard: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Сеансы"
-                            value={data?.data.total_sessions}
+                            value={data?.data.sessions}
                             prefix={<CalendarOutlined />}
                         />
                     </Card>
@@ -64,7 +64,7 @@ export const Dashboard: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Билеты"
-                            value={data?.data.total_tickets}
+                            value={data?.data.tickets.total}
                             prefix={<TagsOutlined />}
                         />
                     </Card>
@@ -73,7 +73,7 @@ export const Dashboard: React.FC = () => {
                     <Card>
                         <Statistic
                             title="Общая выручка"
-                            value={data?.data.total_revenue}
+                            value={data?.data.revenue.total}
                             prefix={<DollarOutlined />}
                             suffix="₽"
                         />
@@ -88,28 +88,28 @@ export const Dashboard: React.FC = () => {
                             <Col span={6}>
                                 <Statistic
                                     title="Забронировано"
-                                    value={data?.data.tickets_by_status.reserved}
+                                    value={data?.data.tickets.booked}
                                     valueStyle={{ color: '#faad14' }}
                                 />
                             </Col>
                             <Col span={6}>
                                 <Statistic
                                     title="Оплачено"
-                                    value={data?.data.tickets_by_status.paid}
+                                    value={data?.data.tickets.paid}
                                     valueStyle={{ color: '#52c41a' }}
                                 />
                             </Col>
                             <Col span={6}>
                                 <Statistic
                                     title="Отменено"
-                                    value={data?.data.tickets_by_status.cancelled}
+                                    value={data?.data.tickets.canceled}
                                     valueStyle={{ color: '#ff4d4f' }}
                                 />
                             </Col>
                             <Col span={6}>
                                 <Statistic
                                     title="Истекло"
-                                    value={data?.data.tickets_by_status.expired}
+                                    value={data?.data.tickets.expired}
                                     valueStyle={{ color: '#bfbfbf' }}
                                 />
                             </Col>

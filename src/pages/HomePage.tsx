@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { movies } from '../api/client';
 import { MovieCard } from '../components/movies/MovieCard';
 import { MovieFilters } from '../components/movies/MovieFilters';
+import { HomeBanner } from '../components/Banner/HomeBanner';
 import type { Movie } from '../types';
 
 const ITEMS_PER_PAGE = 12;
@@ -44,6 +45,8 @@ export const HomePage: React.FC = () => {
 
     return (
         <div>
+            <HomeBanner />
+            
             <MovieFilters
                 onFilter={handleFilter}
                 genres={genres}
