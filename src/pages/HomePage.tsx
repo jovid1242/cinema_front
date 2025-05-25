@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Pagination, Spin, Empty, message } from 'antd';
+import { Row, Col, Pagination, Spin, Empty } from 'antd';
 import { useQuery } from '@tanstack/react-query';
 import { movies } from '../api/client';
 import { MovieCard } from '../components/movies/MovieCard';
@@ -21,7 +21,7 @@ export const HomePage: React.FC = () => {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['movies', { ...filters, page: currentPage }],
-        queryFn: () => movies.getAll({ ...filters, page: currentPage }),
+        queryFn: () => movies.getAll(filters),
     });
 
     // Получаем уникальные жанры и годы из всех фильмов
@@ -39,8 +39,35 @@ export const HomePage: React.FC = () => {
     };
 
     if (error) {
-        message.error('Ошибка при загрузке фильмов');
-        return <Empty description="Не удалось загрузить фильмы" />;
+        console.error('Ошибка при загрузке фильмов:', error);
+        // Проверяем, связана ли ошибка с авторизацией
+        const isAuthError = 
+            error && 
+            typeof error === 'object' && 
+            'response' in error && 
+            error.response && 
+            typeof error.response === 'object' && 
+            'status' in error.response && 
+            error.response.status === 401;
+            
+        if (isAuthError) {
+            return (
+                <div>
+                    <HomeBanner />
+                    <Empty 
+                        description="Для просмотра фильмов необходимо авторизоваться" 
+                        style={{ marginTop: 50 }}
+                    />
+                </div>
+            );
+        }
+        
+        return (
+            <div>
+                <HomeBanner />
+                <Empty description="Не удалось загрузить фильмы" style={{ marginTop: 50 }} />
+            </div>
+        );
     }
 
     return (
@@ -67,7 +94,7 @@ export const HomePage: React.FC = () => {
                         ))}
                     </Row>
 
-                    {data?.data.total > ITEMS_PER_PAGE && (
+                    {data?.data.total && data.data.total > ITEMS_PER_PAGE && (
                         <div style={{ textAlign: 'center', marginTop: 24 }}>
                             <Pagination
                                 current={currentPage}
