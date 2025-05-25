@@ -17,37 +17,38 @@ interface BannerSlide {
 const bannerSlides: BannerSlide[] = [
   {
     id: 1,
-    title: 'Дэдпул и Росомаха',
-    description: 'Самый ожидаемый кроссовер Marvel этого года! Дэдпул объединяется с Росомахой для новых безумных приключений.',
-    imageUrl: 'https://fight-films.info/wp-content/uploads/2024/07/deadpool-and-wolverine_2024.webp',
-    movieId: 1
+    title: 'Пункт назначения',
+    description: 'Семья, которая не может быть разорвана, должна быть собрана.',
+    imageUrl: 'https://images.kinomax.ru/1980/b/40/867697_4075.webp',
+    movieId: 5
   },
   {
     id: 2,
-    title: 'Гладиатор 2',
-    description: 'Продолжение легендарного исторического эпоса возвращается на большие экраны!',
-      imageUrl: 'https://kuzbass.media/wp-content/uploads/2024/11/5343654055072886695.jpg',
-    movieId: 2
+    title: 'Громовержцы',
+    description: 'Громовержцы — это группа людей, которые не боятся громких слов и действий.',
+    imageUrl: 'https://images.kinomax.ru/1980/b/40/378148_4044.webp',
+    movieId: 1
   },
   {
     id: 3,
-    title: 'Веном 3',
-    description: 'Финальная часть трилогии о симбиоте Веноме и его носителе Эдди Броке!',
-      imageUrl: 'https://storage.yandexcloud.net/s3-metaratings-storage/images/33/c8/33c894cfc59b3ddb1545caaad708b699.jpg',
-    movieId: 3
+    title: 'Лило и Стич',
+    description: 'Лило и Стич — это группа людей, которые не боятся громких слов и действий.',
+    imageUrl: 'https://images.kinomax.ru/1980/b/40/844007_4088.webp',
+    movieId: 13
   }
 ];
 
 export const HomeBanner: React.FC = () => {
   return (
     <div className="banner-container">
-      <Carousel autoplay effect="fade" autoplaySpeed={3000}>
+      <Carousel autoplay effect="fade" autoplaySpeed={2000}>
         {bannerSlides.map(slide => (
           <div key={slide.id}>
             <div className="slide-content">
-              <div 
-                className="slide-image" 
-                style={{ backgroundImage: `url(${slide.imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'bottom' }}
+              <img 
+                src={slide.imageUrl} 
+                alt={slide.title}
+                className="slide-image"
               />
               <div className="slide-overlay">
                 <Title level={1} className="slide-title">{slide.title}</Title>
@@ -59,7 +60,7 @@ export const HomeBanner: React.FC = () => {
                     icon={<PlayCircleOutlined />} 
                     className="watch-button"
                   >
-                    Смотреть
+                    Купить билет
                   </Button>
                 </Link>
               </div>

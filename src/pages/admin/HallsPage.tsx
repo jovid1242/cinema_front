@@ -34,7 +34,6 @@ interface HallPreviewState {
     sessionId: number | null;
 }
 
-// Интерфейс для места, возвращаемого от API
 interface ApiSeat {
     row_number: number;
     seat_number: number;
@@ -47,7 +46,6 @@ export const HallsPage: React.FC = () => {
     const [form] = Form.useForm<HallFormValues>();
     const queryClient = useQueryClient();
     
-    // Состояние для выбранного сеанса при просмотре схемы зала
     const [selectedHallSession, setSelectedHallSession] = useState<HallPreviewState | null>(null);
 
     const { data: hallsData, isLoading } = useQuery({
@@ -55,13 +53,11 @@ export const HallsPage: React.FC = () => {
         queryFn: () => halls.getAll(),
     });
 
-    // Запрос данных о сеансах для выбора
     const { data: sessionsData } = useQuery({
         queryKey: ['sessions'],
         queryFn: () => sessions.getAll(),
     });
 
-    // Запрос данных о местах для выбранного сеанса
     const { data: seatsData, isLoading: isLoadingSeats } = useQuery({
         queryKey: ['seats', selectedHallSession?.sessionId],
         queryFn: () => {
@@ -71,7 +67,6 @@ export const HallsPage: React.FC = () => {
         enabled: !!selectedHallSession?.sessionId,
     });
 
-    // Правильно обрабатываем данные залов с пагинацией
     const hallsList = useMemo(() => {
         if (!hallsData?.data) return [];
         if (hallsData?.data && typeof hallsData.data === 'object' && 'data' in hallsData.data) {
@@ -80,7 +75,6 @@ export const HallsPage: React.FC = () => {
         return Array.isArray(hallsData.data) ? hallsData.data : [];
     }, [hallsData]);
 
-    // Правильно обрабатываем данные сеансов с пагинацией
     const sessionsList = useMemo(() => {
         if (!sessionsData?.data) return [];
         if (sessionsData?.data && typeof sessionsData.data === 'object' && 'data' in sessionsData.data) {
@@ -89,7 +83,6 @@ export const HallsPage: React.FC = () => {
         return Array.isArray(sessionsData.data) ? sessionsData.data : [];
     }, [sessionsData]);
 
-    // Фильтруем сеансы по выбранному залу
     const getSessionsByHall = (hallId: number) => {
         return sessionsList.filter(session => session.hall?.id === hallId);
     };
@@ -216,29 +209,13 @@ export const HallsPage: React.FC = () => {
             });
         };
 
-        // Получаем данные о местах для выбранного сеанса
         let seats: Seat[] = [];
         let isLoading = false;
 
         if (selectedHallSession?.hallId === hall.id && selectedHallSession?.sessionId) {
-            // Если выбран сеанс для данного зала
             if (seatsData?.data?.seats) {
-                // Преобразуем формат данных с API в формат, ожидаемый компонентом HallLayout
                 seats = ((seatsData.data.seats as unknown) as ApiSeat[]).map(apiSeat => {
-                    // Определяем статус места на основе данных API
-                    let status: 'available' | 'reserved' | 'sold';
-                    
-                    if (apiSeat.is_available) {
-                        status = 'available';
-                    } else {
-                        // Если место недоступно, проверяем статус
-                        // Для наглядности: часть недоступных мест помечаем как "забронировано"
-                        if ((apiSeat.row_number + apiSeat.seat_number) % 3 === 0) {
-                            status = 'reserved';
-                        } else {
-                            status = 'sold';
-                        }
-                    }
+                    const status: 'available' | 'sold' = apiSeat.is_available ? 'available' : 'sold';
                     
                     return {
                         row: apiSeat.row_number,
@@ -249,7 +226,6 @@ export const HallsPage: React.FC = () => {
             }
             isLoading = isLoadingSeats;
         } else {
-            // Если сеанс не выбран, создаем макет с пустыми местами
             seats = Array.from({ length: hall.rows * hall.seats_per_row }, (_, index) => ({
                 row: Math.floor(index / hall.seats_per_row) + 1,
                 seat: (index % hall.seats_per_row) + 1,
@@ -296,8 +272,7 @@ export const HallsPage: React.FC = () => {
                         <div style={{ marginTop: 16 }}>
                             <Title level={5}>Статистика по сеансу:</Title>
                             <p>
-                                Свободно: {seats.filter(seat => seat.status === 'available').length} мест,
-                                Забронировано: {seats.filter(seat => seat.status === 'reserved').length} мест,
+                                Свободно: {seats.filter(seat => seat.status === 'available').length} мест, 
                                 Продано: {seats.filter(seat => seat.status === 'sold').length} мест
                             </p>
                         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { Navigation } from '../components/common/Navigation';
+import './MainLayout.css';
 
 const { Content, Footer } = Layout;
 
@@ -10,13 +11,18 @@ interface MainLayoutProps {
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout className="main-layout">
             <Navigation />
-            <Content style={{ padding: '24px 50px' }}>
+            <Content className="main-layout-content">
                 <div className="site-layout-content">{children}</div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-                Кинотеатр ©{new Date().getFullYear()} Jovid Masharipov ДИС 232.2/21
+            <Footer className="main-layout-footer">
+                <div className="main-layout-footer-title">
+                    Кинотеатр ©{new Date().getFullYear()} Jovid Masharipov
+                </div>
+                <div className="main-layout-footer-subtitle">
+                    ДИС 232.2/21
+                </div>
             </Footer>
         </Layout>
     );

@@ -46,14 +46,11 @@ export const MoviesPage: React.FC = () => {
         queryFn: () => movies.getAll(),
     });
 
-    // Правильно обрабатываем данные фильмов, учитывая разные форматы API
     const moviesList = useMemo(() => {
         if (!moviesData?.data) return [];
-        // Проверяем, есть ли свойство data в moviesData.data (пагинация)
         if (moviesData?.data && typeof moviesData.data === 'object' && 'data' in moviesData.data) {
             return (moviesData.data.data || []) as Movie[];
         }
-        // Иначе возвращаем данные как есть (старый формат)
         return Array.isArray(moviesData.data) ? moviesData.data : [];
     }, [moviesData]);
 
@@ -110,7 +107,6 @@ export const MoviesPage: React.FC = () => {
     const handleEdit = (movie: Movie) => {
         setEditingMovie(movie);
         
-        // Преобразуем числовой год в объект dayjs для DatePicker и другие поля
         const formValues = {
             ...movie,
             duration_minutes: (movie as unknown as { duration_minutes?: number }).duration_minutes || movie.duration || 0,
@@ -129,7 +125,6 @@ export const MoviesPage: React.FC = () => {
         try {
             const values = await form.validateFields();
             
-            // Преобразуем объект dayjs в числовой год
             const release_year = values.release_year_date ? values.release_year_date.year() : undefined;
             
             const movieData = {
@@ -142,7 +137,6 @@ export const MoviesPage: React.FC = () => {
             if (editingMovie) {
                 updateMutation.mutate({ id: editingMovie.id, values: movieData });
             } else {
-                // Приводим данные к требуемому типу для API
                 createMutation.mutate(movieData as unknown as Omit<Movie, 'id'>);
             }
         } catch (error) {
@@ -296,7 +290,6 @@ export const MoviesPage: React.FC = () => {
                             style={{ width: '100%' }}
                             placeholder="Выберите год"
                             disabledDate={(current) => {
-                                // Ограничиваем выбор с 1900 года по текущий год + 5 лет
                                 return current && (current.year() < 1900 || current.year() > new Date().getFullYear() + 5);
                             }}
                         />

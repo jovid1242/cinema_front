@@ -18,9 +18,9 @@ export const HallLayout: React.FC<HallLayoutProps> = ({
     selectedSeats,
     onSeatSelect,
 }) => {
-    const getSeatStatus = (row: number, seat: number): SeatType['status'] => {
+    const getSeatAvailability = (row: number, seat: number): boolean => {
         const seatData = seats.find(s => s.row === row && s.seat === seat);
-        return seatData?.status || 'available';
+        return seatData?.status === 'available';
     };
 
     const isSeatSelected = (row: number, seat: number): boolean => {
@@ -41,7 +41,7 @@ export const HallLayout: React.FC<HallLayoutProps> = ({
                             key={`${rowNumber}-${seatNumber}`}
                             row={rowNumber}
                             seat={seatNumber}
-                            status={getSeatStatus(rowNumber, seatNumber)}
+                            is_available={getSeatAvailability(rowNumber, seatNumber)}
                             isSelected={isSeatSelected(rowNumber, seatNumber)}
                             onSelect={onSeatSelect}
                         />
@@ -80,17 +80,7 @@ export const HallLayout: React.FC<HallLayoutProps> = ({
                                 borderRadius: 4,
                             }} />
                             <Text>Свободно</Text>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div style={{ 
-                                width: 20, 
-                                height: 20, 
-                                backgroundColor: '#faad14', 
-                                marginRight: 8,
-                                borderRadius: 4,
-                            }} />
-                            <Text>Забронировано</Text>
-                        </div>
+                        </div> 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <div style={{ 
                                 width: 20, 
@@ -101,16 +91,7 @@ export const HallLayout: React.FC<HallLayoutProps> = ({
                             }} />
                             <Text>Продано</Text>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div style={{ 
-                                width: 20, 
-                                height: 20, 
-                                backgroundColor: '#1890ff', 
-                                marginRight: 8,
-                                borderRadius: 4,
-                            }} />
-                            <Text>Выбрано</Text>
-                        </div>
+                        
                     </Space>
                 </div>
             </Space>

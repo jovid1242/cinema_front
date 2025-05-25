@@ -84,4 +84,73 @@
 
 .trailer-button {
   margin-bottom: 20px;
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+  .movie-details-wrapper {
+    padding-bottom: 20px;
+  }
+
+  .movie-details-container {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .movie-details-card {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 16px;
+    margin: 0;
+  }
+
+  .movie-poster {
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .movie-poster:hover {
+    transform: none;
+  }
+
+  .movie-description {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .movie-divider {
+    margin: 20px 0;
+  }
+
+  .sessions-container {
+    padding: 16px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    margin: 0 -16px;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 480px) {
+  .movie-details-card {
+    padding: 12px;
+  }
+
+  .movie-tag {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .movie-description {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .sessions-container {
+    padding: 12px;
+    margin: 0 -12px;
+  }
 } 

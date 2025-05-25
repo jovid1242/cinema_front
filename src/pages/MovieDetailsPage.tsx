@@ -24,7 +24,6 @@ export const MovieDetailsPage: React.FC = () => {
         queryFn: () => movies.getById(Number(id)),
     });
 
-    // Устанавливаем выбранную дату после загрузки данных
     useEffect(() => {
         if (data?.data.grouped_sessions) {
             const dates = Object.keys(data.data.grouped_sessions);

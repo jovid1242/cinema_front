@@ -17,7 +17,6 @@ export const LoginForm: React.FC = () => {
 
     const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
 
-    // Эффект для редиректа администраторов после успешной авторизации
     useEffect(() => {
         if (user && user.role === 'admin') {
             navigate('/admin', { replace: true });
@@ -30,25 +29,19 @@ export const LoginForm: React.FC = () => {
             console.log('Login result:', result);
             message.success('Успешный вход');
             
-            // После успешного входа сразу получаем данные из localStorage
-            // и устанавливаем их в состояние пользователя
             const userData = localStorage.getItem('userData');
             if (userData) {
                 try {
                     const parsedUser = JSON.parse(userData);
                     console.log('Parsed user data from localStorage:', parsedUser);
-                    // Здесь можно дополнительно обработать данные пользователя,
-                    // если необходимо
                 }
                 catch (e) {
                     console.error('Error parsing user data from localStorage:', e);
                 }
             }
             
-            // Проверяем роль пользователя
             const token = localStorage.getItem('token');
             if (token) {
-                // Если у нас есть данные пользователя из ответа авторизации
                 if (user) {
                     console.log('User data after login:', user);
                     if (user.role === 'admin') {
@@ -57,8 +50,6 @@ export const LoginForm: React.FC = () => {
                         navigate(from, { replace: true });
                     }
                 } else {
-                    // Если данных пользователя нет, делаем редирект после небольшой задержки
-                    // чтобы дать время на загрузку данных пользователя
                     setTimeout(() => {
                         navigate('/', { replace: true });
                     }, 500);

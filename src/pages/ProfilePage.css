@@ -1,0 +1,75 @@
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.profile-title {
+  margin-bottom: 24px !important;
+}
+
+.profile-content {
+  width: 100%;
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .profile-title {
+    padding: 16px;
+    margin-bottom: 16px !important;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .profile-content {
+    padding: 0 16px;
+  }
+
+  /* Стили для табов на мобильных */
+  .ant-tabs {
+    background-color: transparent;
+  }
+
+  .ant-tabs-tab {
+    padding: 12px 8px !important;
+    font-size: 14px;
+  }
+
+  .ant-tabs-content-holder {
+    padding: 16px 0;
+  }
+
+  .ant-tabs-tabpane {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 0;
+  }
+
+  .profile-title {
+    padding: 12px;
+    font-size: 20px !important;
+  }
+
+  .profile-content {
+    padding: 0 12px;
+  }
+
+  .ant-tabs-tab {
+    padding: 10px 6px !important;
+    font-size: 13px;
+  }
+
+  .ant-tabs-content-holder {
+    padding: 12px 0;
+  }
+} 

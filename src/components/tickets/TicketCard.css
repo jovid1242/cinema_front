@@ -1,0 +1,99 @@
+.ticket-card {
+  margin-bottom: 16px;
+}
+
+.ticket-card-content {
+  width: 100%;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ticket-info {
+  flex: 1;
+}
+
+.ticket-actions {
+  align-items: flex-end;
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+  .ticket-card {
+    margin: 0 -16px 16px -16px;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .ticket-card .ant-card-body {
+    padding: 16px;
+  }
+
+  .ticket-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ticket-info {
+    width: 100%;
+  }
+
+  .ticket-actions {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .ticket-actions .ant-space {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .ticket-actions .ant-btn {
+    flex: 1;
+    margin: 0 4px;
+  }
+
+  .ticket-actions .ant-btn:first-child {
+    margin-left: 0;
+  }
+
+  .ticket-actions .ant-btn:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ticket-card {
+    margin: 0 -12px 12px -12px;
+  }
+
+  .ticket-card .ant-card-body {
+    padding: 12px;
+  }
+
+  .ticket-header {
+    gap: 12px;
+  }
+
+  .ticket-actions .ant-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: auto;
+  }
+
+  .ant-typography h4 {
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .ant-tag {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+} 

@@ -45,7 +45,6 @@ export const SessionsPage: React.FC = () => {
         queryKey: ['halls'],
         queryFn: () => halls.getAll(),
     });
- 
 
     const createMutation = useMutation({
         mutationFn: (values: SessionFormValues) => sessions.create(values),
@@ -123,36 +122,27 @@ export const SessionsPage: React.FC = () => {
         }
     };
 
-    // Правильно обрабатываем данные сеансов, учитывая разные форматы API
     const sessionsList = useMemo(() => {
         if (!sessionsData?.data) return [];
-        // Проверяем, есть ли свойство data в sessionsData.data (пагинация)
         if (sessionsData?.data && typeof sessionsData.data === 'object' && 'data' in sessionsData.data) {
             return (sessionsData.data.data || []) as Session[];
         }
-        // Иначе возвращаем данные как есть (старый формат)
         return Array.isArray(sessionsData.data) ? sessionsData.data : [];
     }, [sessionsData]);
     
-    // Правильно обрабатываем данные залов, учитывая разные форматы API
     const hallsList = useMemo(() => {
         if (!hallsData?.data) return [];
-        // Проверяем, есть ли свойство data в hallsData.data (пагинация)
         if (hallsData?.data && typeof hallsData.data === 'object' && 'data' in hallsData.data) {
             return (hallsData.data.data || []) as Hall[];
         }
-        // Иначе возвращаем данные как есть (старый формат)
         return Array.isArray(hallsData.data) ? hallsData.data : [];
     }, [hallsData]);
     
-    // Правильно обрабатываем данные фильмов, учитывая разные форматы API
     const moviesList = useMemo(() => {
         if (!moviesData?.data) return [];
-        // Проверяем, есть ли свойство data в moviesData.data (пагинация)
         if (moviesData?.data && typeof moviesData.data === 'object' && 'data' in moviesData.data) {
             return (moviesData.data.data || []) as Movie[];
         }
-        // Иначе возвращаем данные как есть (старый формат)
         return Array.isArray(moviesData.data) ? moviesData.data : [];
     }, [moviesData]);
 

@@ -52,12 +52,9 @@ const AdminRoutes = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Восстанавливаем предыдущий путь админки при входе в админ-панель
     useEffect(() => {
-        // Если мы находимся в корне админки, проверяем наличие сохраненного пути
         if (location.pathname === '/admin' && user?.role === 'admin') {
             const lastPath = localStorage.getItem('lastAdminPath');
-            // Если есть сохраненный путь и он отличается от текущего, перенаправляем
             if (lastPath && lastPath !== '/admin') {
                 navigate(lastPath, { replace: true });
             }
@@ -78,11 +75,11 @@ function App() {
                 <AuthProvider>
                     <Router>
                         <Routes>
-                            {/* Публичные маршруты без навигации */}
+                            {}
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
 
-                            {/* Маршруты с основным макетом */}
+                            {}
                             <Route
                                 path="/"
                                 element={
@@ -109,8 +106,7 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             />
-
-                            {/* Защищенные маршруты для пользователей */}
+  
                             <Route
                                 path="/profile"
                                 element={
@@ -121,8 +117,7 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             />
-
-                            {/* Защищенные маршруты для администраторов */}
+ 
                             <Route
                                 path="/admin"
                                 element={
@@ -139,7 +134,7 @@ function App() {
                                 <Route path="statistics" element={<StatisticsPage />} />
                             </Route>
 
-                            {/* Редирект для несуществующих маршрутов */}
+                            {}
                             <Route path="*" element={<Navigate to="/" replace />} />
                         </Routes>
                     </Router>

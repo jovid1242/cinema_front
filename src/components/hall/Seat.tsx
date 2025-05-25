@@ -2,13 +2,12 @@ import React from 'react';
 import { Button } from 'antd';
 import type { ButtonProps } from 'antd/es/button';
 
-// Определяем тип для статусов места
-type SeatStatus = 'available' | 'sold' | 'reserved';
+type SeatStatus = 'available' | 'sold';
 
 interface SeatProps {
     row: number;
     seat: number;
-    status: SeatStatus;
+    is_available: boolean;
     isSelected: boolean;
     onSelect: (row: number, seat: number) => void;
 }
@@ -16,21 +15,15 @@ interface SeatProps {
 export const Seat: React.FC<SeatProps> = ({
     row,
     seat,
-    status,
+    is_available,
     isSelected,
     onSelect,
 }) => {
-    // Определяем стиль для проданных мест
+    const status: SeatStatus = is_available ? 'available' : 'sold';
+
     const soldSeatStyle: React.CSSProperties = {
         backgroundColor: '#ff4d4f',
         borderColor: '#ff4d4f',
-        color: '#fff'
-    };
-
-    // Определяем стиль для забронированных мест
-    const reservedSeatStyle: React.CSSProperties = {
-        backgroundColor: '#faad14',
-        borderColor: '#faad14',
         color: '#fff'
     };
 
@@ -47,12 +40,6 @@ export const Seat: React.FC<SeatProps> = ({
                     danger: true,
                     style: soldSeatStyle,
                 };
-            case 'reserved':
-                return {
-                    type: 'default',
-                    danger: false,
-                    style: reservedSeatStyle,
-                };
             default:
                 return {
                     type: 'default',
@@ -61,8 +48,7 @@ export const Seat: React.FC<SeatProps> = ({
         }
     };
 
-    // Все недоступные места считаем занятыми
-    const isDisabled = status === 'sold' || status === 'reserved';
+    const isDisabled = !is_available;
     const buttonProps = getButtonProps();
 
     return (

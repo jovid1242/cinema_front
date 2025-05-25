@@ -42,6 +42,12 @@ export interface Seat {
     status: 'available' | 'reserved' | 'sold';
 }
 
+export interface ApiSeat {
+    row_number: number;
+    seat_number: number;
+    is_available: boolean;
+}
+
 export interface Ticket {
     id: number;
     session_id: number;

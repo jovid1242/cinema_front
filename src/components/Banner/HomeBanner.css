@@ -7,7 +7,7 @@
 
 .slide-content {
   position: relative;
-  height: 650px;
+  height: 450px;
   overflow: hidden;
 }
 
@@ -15,8 +15,8 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  object-position: center;
   filter: brightness(0.7);
 }
 
@@ -51,4 +51,63 @@
   width: 180px;
   height: 46px;
   font-size: 16px;
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+  .banner-container {
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+
+  .slide-content {
+    height: 300px;
+  }
+
+  .slide-overlay {
+    padding: 20px;
+    height: 80%;
+  }
+
+  .slide-title {
+    font-size: 24px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .slide-description {
+    font-size: 14px;
+    margin-bottom: 16px !important;
+    max-width: 100%;
+  }
+
+  .watch-button {
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 480px) {
+  .slide-content {
+    height: 250px;
+  }
+
+  .slide-overlay {
+    padding: 16px;
+  }
+
+  .slide-title {
+    font-size: 20px !important;
+  }
+
+  .slide-description {
+    font-size: 13px;
+  }
+
+  .watch-button {
+    width: 130px;
+    height: 36px;
+    font-size: 13px;
+  }
 } 

@@ -4,6 +4,7 @@ import { Tabs, Typography, Space, message, Empty } from 'antd';
 import { tickets } from '../api/client';
 import { TicketCard } from '../components/tickets/TicketCard';
 import type { Ticket } from '../types';
+import './ProfilePage.css';
 
 const { Title } = Typography;
 
@@ -18,14 +19,11 @@ export const ProfilePage: React.FC = () => {
         queryFn: () => tickets.getAll(),
     });
 
-    // Правильно обрабатываем данные билетов, учитывая разные форматы API
     const ticketsList = useMemo<Ticket[]>(() => {
         if (!ticketsData?.data) return [];
-        // Проверяем, есть ли свойство data в ticketsData.data (пагинация)
         if (ticketsData?.data && typeof ticketsData.data === 'object' && 'data' in ticketsData.data) {
             return (ticketsData.data.data || []) as Ticket[];
         }
-        // Иначе возвращаем данные как есть (старый формат)
         return Array.isArray(ticketsData.data) ? ticketsData.data : [];
     }, [ticketsData]);
 
@@ -99,9 +97,9 @@ export const ProfilePage: React.FC = () => {
     ];
 
     return (
-        <div style={{ maxWidth: 800, margin: '0 auto', padding: '24px' }}>
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                <Title level={2}>Мои билеты</Title>
+        <div className="profile-container">
+            <Space direction="vertical" size="large" className="profile-content">
+                <Title level={2} className="profile-title">Мои билеты</Title>
                 <Tabs
                     activeKey={activeTab}
                     onChange={(key) => setActiveTab(key as TicketStatus)}

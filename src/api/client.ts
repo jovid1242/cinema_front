@@ -13,7 +13,6 @@ import type {
 
 const API_URL = "http://movieapi.4519361-lr59745.twc1.net/api";
 
-// Создаем публичный клиент без авторизации для публичных запросов
 const publicApiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -28,7 +27,6 @@ const apiClient = axios.create({
   },
 });
 
-// Перехватчик для добавления токена
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -37,7 +35,6 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-// Перехватчик для обработки ошибок
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -90,14 +87,11 @@ export const auth = {
   },
 
   me: async () => {
-    // Пробуем несколько возможных URL и форматов ответа
     try {
       console.log("Trying to fetch user data...");
-      // Пробуем сначала /auth/me, который может вернуть пользователя напрямую
       const response = await apiClient.get<User>("/auth/get_me");
       console.log("User data response from /auth/me:", response.data);
 
-      // Если ответ - это объект пользователя, возвращаем его в формате { data: User }
       if (response.data && typeof response.data === "object") {
         return { data: response.data as User };
       }
@@ -105,14 +99,12 @@ export const auth = {
     } catch (error) {
       console.error("Error with /auth/me, trying alternative URL...", error);
       try {
-        // Пробуем альтернативный путь /auth/get_me, который может вернуть обертку ApiResponse
         const response = await apiClient.get<ApiResponse<User>>("/auth/get_me");
         console.log(
           "Alternative URL response from /auth/get_me:",
           response.data
         );
 
-        // Если ответ содержит data, возвращаем его
         if (response.data && response.data.data) {
           return response.data;
         }
@@ -120,7 +112,6 @@ export const auth = {
       } catch (error) {
         console.error("Trying with pure token without URL path...", error);
         try {
-          // В некоторых API, можно получить данные пользователя просто отправив токен
           const response = await apiClient.get<User>("/user");
           console.log("User response from /user:", response.data);
           return { data: response.data as User };
@@ -140,8 +131,8 @@ export const movies = {
     year?: number;
     sort_by?: string;
     sort_order?: "asc" | "desc";
+    limit?: number;
   }) => {
-    // Используем публичный клиент без авторизации для получения списка фильмов
     const response = await publicApiClient.get<
       ApiResponse<PaginatedResponse<Movie>>
     >("/movies", { params });
@@ -149,7 +140,6 @@ export const movies = {
   },
 
   getById: async (id: number) => {
-    // Используем публичный клиент для получения информации о фильме
     const response = await publicApiClient.get<
       ApiResponse<Movie & { grouped_sessions: Record<string, Session[]> }>
     >(`/movies/${id}`);

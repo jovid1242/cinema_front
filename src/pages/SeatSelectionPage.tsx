@@ -9,14 +9,12 @@ import type { Seat, Session } from '../types';
 
 const { Title } = Typography;
 
-const RESERVATION_TIME = 30 * 60; // 30 минут в секундах
+const RESERVATION_TIME = 30 * 60;
 
-// Тип для данных о местах с API
 interface ApiSeat {
     row_number: number;
     seat_number: number;
     is_available: boolean;
-    status?: string;
 }
 
 export const SeatSelectionPage: React.FC = () => {
@@ -35,41 +33,27 @@ export const SeatSelectionPage: React.FC = () => {
         queryFn: () => sessions.getSeats(Number(sessionId)),
     });
 
-    // Обрабатываем данные сеанса, учитывая возможные изменения в API
     const session = useMemo<Session | null>(() => {
         if (!sessionData?.data) return null;
-        // Разные форматы ответа API
         if (typeof sessionData.data === 'object' && 'session' in sessionData.data) {
             return sessionData.data.session as Session;
         }
         return sessionData.data as Session;
     }, [sessionData]);
 
-    // Обрабатываем данные мест
     const seats = useMemo<Seat[]>(() => {
         if (!seatsData?.data) return [];
         
         try {
-            // Проверяем формат данных API
             if (typeof seatsData.data === 'object' && 'seats' in seatsData.data) {
                 const rawSeats = seatsData.data.seats;
                 
-                if (Array.isArray(rawSeats)) {
-                    // Преобразуем данные API в формат наших мест
+                if (Array.isArray(rawSeats)) { 
                     return rawSeats.map((rawSeat: unknown): Seat => {
                         const apiSeat = rawSeat as ApiSeat;
                         
-                        // Если данные от API имеют формат ApiSeat
                         if ('row_number' in apiSeat && 'seat_number' in apiSeat) {
-                            let status: 'available' | 'reserved' | 'sold';
-                            
-                            if (apiSeat.is_available) {
-                                status = 'available';
-                            } else if (apiSeat.status === 'reserved') {
-                                status = 'reserved';
-                            } else {
-                                status = 'sold';
-                            }
+                            const status: 'available' | 'sold' = apiSeat.is_available ? 'available' : 'sold';
                             
                             return {
                                 row: apiSeat.row_number,
@@ -78,7 +62,6 @@ export const SeatSelectionPage: React.FC = () => {
                             };
                         }
                         
-                        // Если данные уже в нашем формате
                         const seatData = rawSeat as Seat;
                         return seatData;
                     });
@@ -124,7 +107,6 @@ export const SeatSelectionPage: React.FC = () => {
     }, [selectedSeats]);
 
     const handleSeatSelect = (row: number, seat: number) => {
-        // Проверяем, что место доступно для выбора
         const seatData = seats.find(s => s.row === row && s.seat === seat);
         if (seatData && seatData.status !== 'available') {
             message.error('Это место недоступно для бронирования');
@@ -147,8 +129,7 @@ export const SeatSelectionPage: React.FC = () => {
         }
         reserveMutation.mutate(selectedSeats);
     };
-
-    // Проверка на загрузку и наличие данных
+ 
     if (isLoadingSession || isLoadingSeats) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
@@ -156,8 +137,7 @@ export const SeatSelectionPage: React.FC = () => {
             </div>
         );
     }
-
-    // Проверка наличия сеанса и мест
+ 
     if (!session) {
         return (
             <div style={{ textAlign: 'center', padding: '40px' }}>
@@ -166,8 +146,7 @@ export const SeatSelectionPage: React.FC = () => {
             </div>
         );
     }
-
-    // Расчет итоговой цены с проверкой на наличие price
+ 
     const totalPrice = selectedSeats.length * (session.price || 0);
 
     const formatTime = (seconds: number) => {

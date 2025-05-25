@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Space, Typography, Button, Tag } from 'antd';
 import { ClockCircleOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import type { Ticket } from '../../types';
+import './TicketCard.css';
 
 const { Text, Title } = Typography;
 
@@ -54,10 +55,10 @@ export const TicketCard: React.FC<TicketCardProps> = ({ ticket, onPay, onCancel 
     };
 
     return (
-        <Card>
-            <Space direction="vertical" style={{ width: '100%' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <Space direction="vertical">
+        <Card className="ticket-card">
+            <Space direction="vertical" className="ticket-card-content">
+                <div className="ticket-header">
+                    <Space direction="vertical" className="ticket-info">
                         <Title level={4}>{ticket.session?.movie?.title}</Title>
                         <Space>
                             <ClockCircleOutlined />
@@ -69,7 +70,7 @@ export const TicketCard: React.FC<TicketCardProps> = ({ ticket, onPay, onCancel 
                             Зал: {ticket.session?.hall?.name}, Ряд: {ticket.row}, Место: {ticket.seat}
                         </Text>
                     </Space>
-                    <Space direction="vertical" align="end">
+                    <Space direction="vertical" align="end" className="ticket-actions">
                         {getStatusTag()}
                         <Text strong>{ticket.price} ₽</Text>
                         {ticket.status === 'reserved' && (
