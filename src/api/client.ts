@@ -42,9 +42,8 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      // Удаляем автоматическое перенаправление на страницу логина
-      // window.location.href = '/login';
+      localStorage.removeItem("token"); 
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }

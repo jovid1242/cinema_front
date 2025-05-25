@@ -66,7 +66,7 @@ export const TicketCard: React.FC<TicketCardProps> = ({ ticket, onPay, onCancel 
                             </Text>
                         </Space>
                         <Text>
-                            Зал: {ticket.session?.hall.name}, Ряд: {ticket.row}, Место: {ticket.seat}
+                            Зал: {ticket.session?.hall?.name}, Ряд: {ticket.row}, Место: {ticket.seat}
                         </Text>
                     </Space>
                     <Space direction="vertical" align="end">

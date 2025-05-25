@@ -10,10 +10,12 @@ export interface Movie {
     title: string;
     description: string;
     duration_minutes: number;
+    duration?: number;
     genre: string;
     release_year: number;
     poster_url: string;
     is_active: boolean;
+    rating?: number;
 }
 
 export interface Hall {

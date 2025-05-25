@@ -7,7 +7,6 @@ import {
     BankOutlined,
     CalendarOutlined,
     UserOutlined,
-    BarChartOutlined,
     LogoutOutlined,
 } from '@ant-design/icons';
 import { useAuth } from '../contexts/AuthContext';
